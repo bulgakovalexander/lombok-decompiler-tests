@@ -1,0 +1,1 @@
+# lombok-decompiler-tests
