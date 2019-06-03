@@ -1,1 +1,1 @@
-# lombok-decompiler-tests
+# lombok-tests
