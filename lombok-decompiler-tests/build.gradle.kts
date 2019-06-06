@@ -30,11 +30,17 @@ dependencies {
     compileOnly(lombokJar)
     annotationProcessor(lombokJar)
 //    compile("com.google.guava:guava:27.1-jre")
-
+    testCompile("org.junit.jupiter:junit-jupiter-api:5.4.2")
 }
 
 val rootSrc = "${lombokRootDir}/test/transform/resource"
-sourceSets.main {
+//sourceSets.remove(sourceSets.main)
+
+sourceSets.create("val") {
+    val main = sourceSets.main.get()
+    runtimeClasspath = main.runtimeClasspath
+    compileClasspath = main.compileClasspath
+    annotationProcessorPath = main.annotationProcessorPath
     java {
         srcDirs(listOf("$rootSrc/before"))
         include("ValLambda.java", "ValInLambda.java", "Val*.java")
@@ -48,17 +54,18 @@ sourceSets.main {
 //    }
 //}
 
-sourceSets.forEach { ss ->
+sourceSets.filter { !(it.name in listOf("main", "test")) }.forEach { ss ->
+    val compileTaskName = ss.compileJavaTaskName
     val name = ss.name
     val suffixName = name[0].toUpperCase() + name.substring(1)
     val allJava = ss.java
 
     val decompileJavac = tasks.create("decompile${suffixName}Java") {
         dependsOn(gradle.includedBuild("fernflower").task(":build"))
-        dependsOn("classes")
+        dependsOn(compileTaskName)
         doLast {
             val source = ss.output.classesDirs.files.first()
-            val destination = File("build/decompiled/${name}")
+            val destination = File(projectDir, "build/decompiled/${name}")
             destination.mkdirs()
             val args = arrayOf("-rsy=1", source.toString(), destination.toString())
             ConsoleDecompiler.main(args)
@@ -67,7 +74,7 @@ sourceSets.forEach { ss ->
 
     val compileEcj = tasks.create<org.gradle.api.tasks.compile.JavaCompile>("compile${suffixName}Ecj") {
         source = allJava
-        destinationDir = File("build/classes/java/${name}Ecj")
+        destinationDir = File(projectDir, "build/classes/java/${name}Ecj")
         classpath = ecj.asFileTree
         targetCompatibility = "8"
         sourceCompatibility = "8"
@@ -90,8 +97,8 @@ sourceSets.forEach { ss ->
         dependsOn(gradle.includedBuild("fernflower").task(":build"))
         dependsOn(compileEcj)
         doLast {
-            val source = File("build/classes/java/${name}Ecj")
-            val destination = File("build/decompiled/${name}Ecj")
+            val source = File(projectDir, "build/classes/java/${name}Ecj")
+            val destination = File(projectDir, "build/decompiled/${name}Ecj")
             destination.mkdirs()
             val args = arrayOf("-rsy=1", source.toString(), destination.toString())
             ConsoleDecompiler.main(args)

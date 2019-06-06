@@ -1,0 +1,4 @@
+class ValNullInit {
+   void method() {
+   }
+}

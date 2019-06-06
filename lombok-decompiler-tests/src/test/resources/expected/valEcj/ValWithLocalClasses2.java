@@ -1,0 +1,2 @@
+class ValWithLocalClasses2 {
+}
