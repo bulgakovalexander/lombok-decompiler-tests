@@ -4,6 +4,10 @@ public class ValLessSimple {
 
    public ValLessSimple() {
       System.out.println("Hello");
+      int z = true;
+      int x = true;
+      int a = true;
+      short var4 = this.field2;
       this.field = "field";
    }
 
@@ -17,14 +21,17 @@ public class ValLessSimple {
 
    private void testVal(String param) {
       String fieldV = this.field;
+      int a = true;
+      int b = true;
       String methodV = this.method();
       (new StringBuilder(String.valueOf(fieldV))).append(methodV).toString();
    }
 
    private void testValInCatchBlock() {
       try {
-         int var10000 = 1 / 0;
-      } catch (ArithmeticException var1) {
+         int var1 = 1 / 0;
+      } catch (ArithmeticException var3) {
+         boolean var2 = false;
       }
 
    }

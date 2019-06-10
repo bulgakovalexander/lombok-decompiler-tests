@@ -2,7 +2,7 @@ import java.util.function.Function;
 
 public class ValDelegateMethodReference {
    public void config() {
-      this.createColumn(Entity::getValue);
+      Column column = this.createColumn(Entity::getValue);
    }
 
    private Column createColumn(Function func) {

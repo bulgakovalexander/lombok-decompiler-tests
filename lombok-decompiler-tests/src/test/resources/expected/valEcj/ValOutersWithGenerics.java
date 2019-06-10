@@ -6,8 +6,9 @@ import java.util.Map.Entry;
 
 public class ValOutersWithGenerics {
    public void testOutersWithGenerics() {
+      String foo = "";
       List list = new ArrayList();
-      ValOutersWithGenerics.Inner var10000 = (ValOutersWithGenerics.Inner)list.get(0);
+      ValOutersWithGenerics.Inner elem = (ValOutersWithGenerics.Inner)list.get(0);
    }
 
    public void testLocalClasses() {
@@ -24,8 +25,8 @@ public class ValOutersWithGenerics {
    }
 
    public static void loop(Map map) {
-      Entry var10000;
-      for(Iterator var1 = map.entrySet().iterator(); var1.hasNext(); var10000 = (Entry)var1.next()) {
+      Entry var1;
+      for(Iterator var2 = map.entrySet().iterator(); var2.hasNext(); var1 = (Entry)var2.next()) {
       }
 
    }
@@ -39,7 +40,7 @@ public class ValOutersWithGenerics {
    static class SubClass extends ValOutersWithGenerics {
       public void testSubClassOfOutersWithGenerics() {
          List list = new ArrayList();
-         ValOutersWithGenerics.Inner var10000 = (ValOutersWithGenerics.Inner)list.get(0);
+         ValOutersWithGenerics.Inner elem = (ValOutersWithGenerics.Inner)list.get(0);
       }
    }
 }

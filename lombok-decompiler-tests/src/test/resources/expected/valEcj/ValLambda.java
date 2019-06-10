@@ -2,14 +2,14 @@ import java.io.Serializable;
 
 class ValLambda {
    public void easyLambda() {
-      Runnable var10000 = () -> {
+      Runnable foo = () -> {
       };
    }
 
    public void easyIntersectionLambda() {
-      Runnable var10000 = (Runnable)((Serializable)(() -> {
+      Object foo = (Runnable)((Serializable)(() -> {
       }));
-      Serializable var1 = (Serializable)((Runnable)(() -> {
+      Object bar = (Serializable)((Runnable)(() -> {
       }));
    }
 

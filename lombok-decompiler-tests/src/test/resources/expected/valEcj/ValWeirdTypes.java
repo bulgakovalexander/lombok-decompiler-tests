@@ -12,17 +12,19 @@ public class ValWeirdTypes {
    public void testGenerics() {
       List list = new ArrayList();
       list.add("Hello, World!");
-      String var10000 = (String)list.get(0);
-      Arrays.asList("hello", "world");
-      var10000 = (String)list.get(0);
+      String shouldBeString = (String)list.get(0);
+      List shouldBeListOfStringToo = Arrays.asList("hello", "world");
+      String shouldBeString2 = (String)list.get(0);
    }
 
    public void testGenericsInference() {
-      Collections.emptyList();
-      Collections.emptyList();
+      List huh = Collections.emptyList();
+      List huh2 = Collections.emptyList();
    }
 
    public void testPrimitives() {
+      int x = true;
+      long y = 8L;
    }
 
    public void testAnonymousInnerClass() {
@@ -33,42 +35,40 @@ public class ValWeirdTypes {
    }
 
    public void testTypeParams(List param) {
-      Number var10000 = (Number)param.get(0);
-      this.fieldList.get(0);
+      Number t = (Number)param.get(0);
+      Object z = this.fieldList.get(0);
+      List y = this.fieldList;
    }
 
    public void testBounds(List lower, List upper) {
-      Number var10000 = (Number)lower.get(0);
-      upper.get(0);
+      Number a = (Number)lower.get(0);
+      Object b = upper.get(0);
    }
 
    public void testCompound() {
-      new ArrayList();
-      new Vector();
+      ArrayList a = new ArrayList();
+      Vector b = new Vector();
       boolean c = 1L < System.currentTimeMillis();
-      if (c) {
-      }
-
-      if (c) {
-      }
-
+      Object var10000 = c ? a : b;
+      var10000 = c ? a : b;
    }
 
    public void nullType() {
+      Object nully = null;
    }
 
    public void testArrays() {
       int[] intArray = new int[]{1, 2, 3};
       Object[][] multiDimArray = new Object[][]{new Object[0]};
-      Object[] var10000 = multiDimArray[0];
-      int var4 = intArray[0];
+      Object[] single = multiDimArray[0];
+      int singleInt = intArray[0];
    }
 
    public void arraysAsList() {
       List x = Arrays.asList(String.class, BigDecimal.class);
 
-      Class var10000;
-      for(Iterator var2 = x.iterator(); var2.hasNext(); var10000 = (Class)var2.next()) {
+      Class var2;
+      for(Iterator var3 = x.iterator(); var3.hasNext(); var2 = (Class)var3.next()) {
       }
 
    }

@@ -10,7 +10,7 @@ public class ValInTryWithResources {
          InputStream in = this.getClass().getResourceAsStream("ValInTryWithResources.class");
 
          try {
-            in.read();
+            int var5 = in.read();
          } finally {
             if (in != null) {
                in.close();
@@ -18,11 +18,11 @@ public class ValInTryWithResources {
 
          }
 
-      } catch (Throwable var9) {
+      } catch (Throwable var11) {
          if (var1 == null) {
-            var1 = var9;
-         } else if (var1 != var9) {
-            var1.addSuppressed(var9);
+            var1 = var11;
+         } else if (var1 != var11) {
+            var1.addSuppressed(var11);
          }
 
          throw var1;

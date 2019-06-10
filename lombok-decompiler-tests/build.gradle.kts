@@ -25,7 +25,8 @@ val rtJar = files("${lombokRootDir}/lib/oracleJDK8Environment/rt.jar")
 
 dependencies {
     //    compileOnly(gradleApi())
-    add("ecj", "org.eclipse.jdt.core.compiler:ecj:4.4.2")
+    val ecj = add("ecj", "org.eclipse.jdt.core.compiler:ecj:4.4.2")
+    compileOnly(ecj!!)
 
     compileOnly(lombokJar)
     annotationProcessor(lombokJar)
@@ -61,7 +62,7 @@ sourceSets.filter { !(it.name in listOf("main", "test")) }.forEach { ss ->
     val allJava = ss.java
 
     val decompileJavac = tasks.create("decompile${suffixName}Java") {
-        dependsOn(gradle.includedBuild("fernflower").task(":build"))
+        dependsOn(gradle.includedBuild("fernflower").task(":jar"))
         dependsOn(compileTaskName)
         doLast {
             val source = ss.output.classesDirs.files.first()
@@ -87,14 +88,15 @@ sourceSets.filter { !(it.name in listOf("main", "test")) }.forEach { ss ->
                 jvmArgs = listOf(
                         "-javaagent:" + lombokJar.asPath,
                         "-classpath", ecj.asPath,
-                        "org.eclipse.jdt.internal.compiler.batch.Main", "-nowarn", "-g:lines,vars,source"
+                        "org.eclipse.jdt.internal.compiler.batch.Main", "-nowarn", "-g:lines,vars,source",
+                        "-preserveAllLocals"
                 )
             }
         }
     }
 
     val decompileEcj = tasks.create("decompile${suffixName}Ecj") {
-        dependsOn(gradle.includedBuild("fernflower").task(":build"))
+        dependsOn(gradle.includedBuild("fernflower").task(":jar"))
         dependsOn(compileEcj)
         doLast {
             val source = File(projectDir, "build/classes/java/${name}Ecj")

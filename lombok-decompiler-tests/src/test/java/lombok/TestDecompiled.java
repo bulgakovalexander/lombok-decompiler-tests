@@ -48,12 +48,14 @@ public class TestDecompiled {
         int lineNum = 0;
         try (BufferedReader decompiledReader = new BufferedReader(new FileReader(actual));
              BufferedReader expectedReader = new BufferedReader(new FileReader(expected))) {
-            lineNum++;
-            String decompiledLine = decompiledReader.readLine();
-            String expectedLine = expectedReader.readLine();
-            assertEquals(expectedLine, decompiledLine,
-                    "file:" + actual + ", line:" + lineNum + ", expected:" + expectedLine +
-                            ", but decompiled:" + decompiledLine);
+            String decompiledLine;
+            while (null != (decompiledLine = decompiledReader.readLine())) {
+                lineNum++;
+                String expectedLine = expectedReader.readLine();
+                assertEquals(expectedLine, decompiledLine,
+                        "file:" + actual + ", line:" + lineNum + ", expected:" + expectedLine +
+                                ", but decompiled:" + decompiledLine);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

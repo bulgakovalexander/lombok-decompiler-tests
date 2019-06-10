@@ -1,14 +1,17 @@
 class ValInLambda {
    Runnable foo = () -> {
+      boolean var0 = true;
    };
 
    public void easyLambda() {
-      Runnable var10000 = () -> {
+      Runnable foo = () -> {
+         boolean var0 = true;
       };
    }
 
    public void easyIntersectionLambda() {
-      Runnable var10000 = () -> {
+      Runnable foo = () -> {
+         boolean var0 = true;
       };
    }
 }

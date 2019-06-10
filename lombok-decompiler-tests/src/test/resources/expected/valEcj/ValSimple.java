@@ -12,10 +12,11 @@ public class ValSimple {
 
    private void testVal(String param) {
       String fieldV = this.field;
-      this.method();
+      String methodV = this.method();
       (new StringBuilder(String.valueOf(fieldV))).append(fieldV).toString();
       short fieldW = this.field2;
-      this.method2();
-      byte localVar = true;
+      double methodW = this.method2();
+      byte localVar = 3;
+      int var10000 = fieldW + localVar;
    }
 }

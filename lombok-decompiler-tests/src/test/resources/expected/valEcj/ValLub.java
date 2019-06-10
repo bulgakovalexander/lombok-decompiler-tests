@@ -9,10 +9,7 @@ import java.util.Set;
 class ValLub {
    public void easyLub() {
       Map m = Collections.emptyMap();
-      if (System.currentTimeMillis() <= 0L) {
-         Collections.emptyMap();
-      }
-
+      Map foo = System.currentTimeMillis() > 0L ? m : Collections.emptyMap();
    }
 
    public void sillyLubWithUnboxingThatProducesErrorThatVarIsPrimitive() {
@@ -31,6 +28,6 @@ class ValLub {
       Set set = new HashSet();
       Collection thisShouldBeCollection = System.currentTimeMillis() > 0L ? list : set;
       ((Collection)thisShouldBeCollection).add("");
-      String var10000 = (String)((Collection)thisShouldBeCollection).iterator().next();
+      String foo = (String)((Collection)thisShouldBeCollection).iterator().next();
    }
 }

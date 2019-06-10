@@ -2,6 +2,7 @@ interface ValDefault {
    int size();
 
    default void method() {
-      this.size();
+      int x = true;
+      int size = this.size();
    }
 }

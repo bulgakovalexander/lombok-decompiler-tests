@@ -4,6 +4,7 @@ import java.util.List;
 public class ValAnonymousSubclassWithGenerics {
    Object object = new Object() {
       void foo() {
+         int j = true;
       }
    };
    List names = new ArrayList() {
